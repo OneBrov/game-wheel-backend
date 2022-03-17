@@ -153,8 +153,7 @@ export class GamesService {
 
   @Cron('* * * 17 * *')
   async updateGameData() {
-    const { isSuccess } = await this.loadGamePage(0);
-    return isSuccess;
+    await this.loadGamePage(0);
   }
 
   async loadGamePage(page: number): Promise<{ isSuccess: boolean }> {
