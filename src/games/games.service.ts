@@ -151,7 +151,7 @@ export class GamesService {
     return await this.developersRepository.find();
   }
 
-  @Cron('* * * 17 * *')
+  @Cron('* * 240 * * *')
   async updateGameData() {
     await this.loadGamePage(0);
   }
@@ -204,7 +204,7 @@ export class GamesService {
           isSuccess: true,
         };
       }
-    }, 2000);
+    }, 5000);
   }
 
   async createGame(gameDto: GameDto) {

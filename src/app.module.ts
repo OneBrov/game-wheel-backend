@@ -12,11 +12,13 @@ import { GamesHistoryModule } from './gamesHistory/gamesHistory.module';
     TypeOrmModule.forRoot({
       url: process.env.DATABASE_URL,
       type: 'postgres',
+      name: 'default',
+      logging: true,
       ssl: {
         rejectUnauthorized: false,
       },
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false, // This for development
+      entities: ['dist/**/*.entity.js'],
+      synchronize: true, // This for development
       autoLoadEntities: true,
     }),
     UsersModule,
