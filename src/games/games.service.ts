@@ -178,14 +178,14 @@ export class GamesService {
           throw new Error(`${steamGame?.name} is not a game`);
         }
         if (
-          !steamGame.developers ||
-          !steamGame.publishers ||
-          !steamGame.genres ||
-          !steamSpyGame.languages ||
-          !steamSpyGame.tags ||
-          !hltbGame.gameplayMain ||
+          !steamGame?.developers ||
+          !steamGame?.publishers ||
+          !steamGame?.genres ||
+          !steamSpyGame?.languages ||
+          !steamSpyGame?.tags ||
+          !hltbGame?.gameplayMain ||
           (steamGame?.price_overview?.initial === undefined &&
-            !steamGame.is_free)
+            !steamGame?.is_free)
         ) {
           throw new Error(`${steamGame?.name} data not full `);
         }
