@@ -140,10 +140,10 @@ export class GamesService {
     return await this.developersRepository.find();
   }
 
-  @Cron('* * 240 * * *')
-  async updateGameData() {
-    await this.loadGamePage(0);
-  }
+  // @Cron('* * 240 * * *')
+  // async updateGameData() {
+  //   await this.loadGamePage(0);
+  // }
 
   async loadGamePage(page: number): Promise<{ isSuccess: boolean }> {
     // const allGames = await this.getAllSteamGames();
@@ -166,10 +166,6 @@ export class GamesService {
         if (steamGame?.type !== 'game') {
           throw new Error(`${steamGame?.name} is not a game`);
         }
-
-        console.log(steamGame);
-        console.log(steamSpyGame);
-        console.log(hltbGame);
 
         if (
           !steamGame?.developers ||
@@ -342,7 +338,6 @@ export class GamesService {
       soldCount: (Number(minSoldCount) + Number(maxSoldCount)) / 2,
       steamScore: steamScore || 0,
     };
-
     const hltbGameData = {
       gameplayTime: Number(hltbGame.gameplayMain),
       HLTBURL: `https://howlongtobeat.com/game?id=${hltbGame.id}`,

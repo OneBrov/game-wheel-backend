@@ -13,7 +13,7 @@ import { GamesHistoryModule } from './gamesHistory/gamesHistory.module';
       url: process.env.DATABASE_URL,
       type: 'postgres',
       name: 'default',
-      logging: true,
+      logging: false,
       ssl: {
         rejectUnauthorized: false,
       },
