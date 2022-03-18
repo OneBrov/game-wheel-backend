@@ -121,17 +121,6 @@ export class GamesService {
       .leftJoinAndSelect('game.tags', 'tag')
       .leftJoinAndSelect('game.languages', 'language')
       .whereInIds(ids);
-
-    // const gamesQuery = this.gamesRepository
-    //   .createQueryBuilder('game')
-    //   .addOrderBy('random()', 'DESC')
-    //   .leftJoin('game.developers', 'developer')
-    //   .leftJoin('game.publishers', 'publisher')
-    //   .leftJoin('game.genres', 'genre')
-    //   .leftJoin('game.tags', 'tag')
-    //   .leftJoin('game.languages', 'language')
-    //   .where('game.id IN (' + settingFilterQuery.getQuery() + ')')
-    //   .setParameters(settingFilterQuery.getParameters());
     return await gamesQuery.getMany();
   }
 
@@ -177,13 +166,18 @@ export class GamesService {
         if (steamGame?.type !== 'game') {
           throw new Error(`${steamGame?.name} is not a game`);
         }
+
+        console.log(steamGame);
+        console.log(steamSpyGame);
+        console.log(hltbGame);
+
         if (
           !steamGame?.developers ||
           !steamGame?.publishers ||
           !steamGame?.genres ||
           !steamSpyGame?.languages ||
           !steamSpyGame?.tags ||
-          !hltbGame?.gameplayMain ||
+          hltbGame?.gameplayMain === undefined ||
           (steamGame?.price_overview?.initial === undefined &&
             !steamGame?.is_free)
         ) {
@@ -225,7 +219,7 @@ export class GamesService {
       gameDto.developers,
       gameDto.languages,
     );
-    console.log(gameDevelopers);
+    console.log(game);
 
     game.id = gameDto.steamId;
     game.name = gameDto.name;
