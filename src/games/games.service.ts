@@ -62,17 +62,14 @@ export class GamesService {
           });
         }
 
-        if (
-          !dto.isFree &&
-          dto.minPrice !== undefined &&
-          dto.maxPrice !== undefined
-        ) {
+        if (dto.isFree || (dto.minPrice === 0 && dto.maxPrice === 0)) {
+          console.log('here');
+          qb.andWhere('game.price = 0');
+        } else {
           qb.andWhere('game.price between :minPrice and :maxPrice', {
             minPrice: dto.minPrice,
             maxPrice: dto.maxPrice,
           });
-        } else {
-          qb.andWhere('game.price = 0');
         }
 
         if (dto.name && dto.name.length > 0) {
@@ -183,7 +180,8 @@ export class GamesService {
 
         console.log(game);
 
-        this.createGame(game);
+        const g = await this.createGame(game);
+        console.log(`Game ${g.name} created`);
       } catch (e) {
         console.log(e?.message);
       }
@@ -236,7 +234,7 @@ export class GamesService {
     game.imageURL = gameDto.imageURL;
     game.releaseDate = gameDto.releaseDate;
 
-    return this.gamesRepository.save(game);
+    return await this.gamesRepository.save(game);
   }
 
   async createM2MGameFields(

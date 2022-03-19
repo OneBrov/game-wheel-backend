@@ -6,6 +6,7 @@ import {
   ParseArrayPipe,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { GameDto } from './dto/game.dto';
 import { GamesService } from './games.service';
@@ -44,14 +45,30 @@ export class GamesController {
   async getGames(
     @Query('maxCount', new DefaultValuePipe(15)) maxCount: number,
     @Query('offset') offset: number,
-    @Query('isRandom', new DefaultValuePipe(false)) isRandom: boolean,
+    @Query(
+      'isRandom',
+      new DefaultValuePipe(false),
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+      }),
+    )
+    isRandom: boolean,
     @Query('minPrice') minPrice: number,
     @Query('maxPrice') maxPrice: number,
     @Query('minMetascore') minMetascore: number,
     @Query('maxMetascore') maxMetascore: number,
     @Query('minRating') minRating: number,
     @Query('maxRating') maxRating: number,
-    @Query('isFree') isFree: boolean,
+    @Query(
+      'isFree',
+      new DefaultValuePipe(false),
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+      }),
+    )
+    isFree: boolean,
     @Query('name') name: string,
     @Query('publisher', new ParseArrayPipe({ items: String, optional: true }))
     publishers: string[],

@@ -9,18 +9,20 @@ import { GamesHistoryModule } from './gamesHistory/gamesHistory.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      url: process.env.DATABASE_URL,
-      type: 'postgres',
-      name: 'default',
-      logging: false,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      entities: ['dist/**/*.entity.js'],
-      synchronize: true, // This for development
-      autoLoadEntities: true,
-    }),
+    TypeOrmModule.forRoot(
+    //   {
+    //   url: process.env.DATABASE_URL,
+    //   type: 'postgres',
+    //   name: 'default',
+    //   logging: false,
+    //   ssl: {
+    //     rejectUnauthorized: false,
+    //   },
+    //   entities: ['dist/**/*.entity.js'],
+    //   synchronize: true, // This for development
+    //   autoLoadEntities: true,
+    // }
+    ),
     UsersModule,
     GamesModule,
     GamesHistoryModule,
